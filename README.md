@@ -6,7 +6,37 @@ By default, all objects that aren't `Number`, `String`, `Boolean`, `Function`, `
 
 If a second argument is passed, and `true`, the global object will return `"global"` and other non-plain-objects will return their parsed [[Class]] name. The "other non-plain-objects" bit might not be reliable across all implementations, so exercise caution when using it.
 
-Based on prior work by [kitcambridge](https://gist.github.com/kitcambridge) <https://gist.github.com/1317416> and myself <https://gist.github.com/1131946>.
+Based on prior work by [kitcambridge](https://gist.github.com/kitcambridge) (<https://gist.github.com/1317416>) and myself (<https://gist.github.com/1131946>).
+
+## Getting Started
+
+This code should work just fine in Node.js:
+
+```javascript
+var getClass = require('lib/getclass').getClass;
+getClass("foo") // "String"
+```
+
+Or in the browser:
+
+```html
+<script src="dist/ba-getclass.min.js"></script>
+<script>
+getClass("foo") // "String"
+</script>
+```
+
+In the browser, you can attach getClass to any object.
+
+```html
+<script>
+this.exports = Bocoup.utils;
+</script>
+<script src="dist/ba-getclass.min.js"></script>
+<script>
+Bocoup.utils.getClass("foo") // "String"
+</script>
+```
 
 ## Examples:
 

@@ -6,7 +6,7 @@ By default, all objects that aren't `Number`, `String`, `Boolean`, `Function`, `
 
 If a second argument is passed, and `true`, the global object will return `"global"` and other non-plain-objects will return their parsed [[Class]] name. The "other non-plain-objects" bit might not be reliable across all implementations, so exercise caution when using it.
 
-Based on prior work by [kitcambridge](https://gist.github.com/kitcambridge) (<https://gist.github.com/1317416>) and myself (<https://gist.github.com/1131946>).
+Based on prior work by [Angus Croll](http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/), [Kit Cambridge](https://gist.github.com/1317416) and [myself](https://gist.github.com/1131946).
 
 ## Getting Started
 

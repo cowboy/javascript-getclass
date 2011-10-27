@@ -2,7 +2,7 @@
 
 Get the [[Class]] of a value.
 
-By default, all objects that aren't `Number`, `String`, `Boolean`, `Function`, `RegExp`, `Array`, `Date`, or `Error` will return `"Object"` unless an optional second argument is passed.
+By default, all objects that aren't `Number`, `String`, `Boolean`, `Function`, `RegExp`, `Array`, or `Date` will return `"Object"` unless an optional second argument is passed.
 
 If a second argument is passed, and `true`, the global object will return `"global"` and other non-plain-objects will return their parsed [[Class]] name. The "other non-plain-objects" bit might not be reliable across all implementations, so exercise caution when using it.
 
@@ -80,14 +80,6 @@ getClass(new Array(1, 2, 3))          // "Array"
 // Date:
 getClass(new Date())                  // "Date"
 
-// Error:
-getClass(new Error("foo"))            // "Error"
-getClass(new EvalError("foo"))        // "Error"
-getClass(new RangeError("foo"))       // "Error"
-getClass(new ReferenceError("foo"))   // "Error"
-getClass(new SyntaxError("foo"))      // "Error"
-getClass(new TypeError("foo"))        // "Error"
-
 // Object:
 getClass({})                          // "Object"
 getClass(new function() {})           // "Object"
@@ -100,6 +92,9 @@ getClass(document.body)               // "Object"
 // Object, specifically:
 getClass({}, true)                    // "Object"
 getClass(new function() {}, true)     // "Object"
+getClass(new EvalError("foo"), true)  // "Error"
+getClass(new RangeError("foo"), true) // "Error"
+getClass(new TypeError("foo"), true)  // "Error"
 getClass(global, true)                // "global"
 getClass(JSON, true)                  // "JSON"
 getClass(window, true)                // "global"

@@ -81,12 +81,12 @@ exports["non-specific"] = {
   },
   "Error": function(test) {
     test.expect(6);
-    test.strictEqual(getClass(new Error("foo")), "Error", "should work");
-    test.strictEqual(getClass(new EvalError("foo")), "Error", "should work");
-    test.strictEqual(getClass(new RangeError("foo")), "Error", "should work");
-    test.strictEqual(getClass(new ReferenceError("foo")), "Error", "should work");
-    test.strictEqual(getClass(new SyntaxError("foo")), "Error", "should work");
-    test.strictEqual(getClass(new TypeError("foo")), "Error", "should work");
+    test.strictEqual(getClass(new Error("foo"), true), "Error", "should work");
+    test.strictEqual(getClass(new EvalError("foo"), true), "Error", "should work");
+    test.strictEqual(getClass(new RangeError("foo"), true), "Error", "should work");
+    test.strictEqual(getClass(new ReferenceError("foo")), "Object", "should work");
+    test.strictEqual(getClass(new SyntaxError("foo")), "Object", "should work");
+    test.strictEqual(getClass(new TypeError("foo"), true), "Error", "should work");
     test.done();
   },
   "Object": function(test) {

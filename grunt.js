@@ -33,7 +33,7 @@ config.init({
   jshint: {
     options: {
       curly: true,
-      //eqeqeq: true,
+      eqeqeq: true,
       immed: true,
       latedef: true,
       newcap: true,

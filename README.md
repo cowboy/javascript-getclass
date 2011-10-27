@@ -1,6 +1,6 @@
 # JavaScript getClass
 
-Return the [[Class]] of a passed value.
+Get the [[Class]] of a value.
 
 By default, all objects that aren't `Number`, `String`, `Boolean`, `Function`, `RegExp`, `Array`, `Date`, or `Error` will return `"Object"` unless an optional second argument is passed.
 

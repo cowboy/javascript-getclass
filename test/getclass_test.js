@@ -103,39 +103,38 @@ exports["non-specific"] = {
 exports["specific"] = {
   "Null": function(test) {
     test.expect(1);
-    test.strictEqual(getClass(null, true), "Null", "should work");
+    test.strictEqual(getClass(null, {specific: true}), "Null", "should work");
     test.done();
   },
   "Undefined": function(test) {
-    test.expect(2);
-    test.strictEqual(getClass(undefined, true), "Undefined", "should work");
-    test.strictEqual(getClass(), "Undefined", "should work");
+    test.expect(1);
+    test.strictEqual(getClass(undefined, {specific: true}), "Undefined", "should work");
     test.done();
   },
   "Number": function(test) {
     test.expect(5);
-    test.strictEqual(getClass(123, true), "Number", "should work");
-    test.strictEqual(getClass(Number(123), true), "Number", "should work");
-    test.strictEqual(getClass(new MyNumber(123), true), "Number", "should work");
-    test.strictEqual(getClass(NaN, true), "Number", "should work");
-    test.strictEqual(getClass(Infinity, true), "Number", "should work");
+    test.strictEqual(getClass(123, {specific: true}), "Number", "should work");
+    test.strictEqual(getClass(Number(123), {specific: true}), "Number", "should work");
+    test.strictEqual(getClass(new MyNumber(123), {specific: true}), "Number", "should work");
+    test.strictEqual(getClass(NaN, {specific: true}), "Number", "should work");
+    test.strictEqual(getClass(Infinity, {specific: true}), "Number", "should work");
     test.done();
   },
   "String": function(test) {
     test.expect(3);
-    test.strictEqual(getClass("foo", true), "String", "should work");
-    test.strictEqual(getClass(String("foo"), true), "String", "should work");
-    test.strictEqual(getClass(new MyString("foo"), true), "String", "should work");
+    test.strictEqual(getClass("foo", {specific: true}), "String", "should work");
+    test.strictEqual(getClass(String("foo"), {specific: true}), "String", "should work");
+    test.strictEqual(getClass(new MyString("foo"), {specific: true}), "String", "should work");
     test.done();
   },
   "Boolean": function(test) {
     test.expect(6);
-    test.strictEqual(getClass(true, true), "Boolean", "should work");
-    test.strictEqual(getClass(Boolean(true), true), "Boolean", "should work");
-    test.strictEqual(getClass(new MyBoolean(true), true), "Boolean", "should work");
-    test.strictEqual(getClass(false, true), "Boolean", "should work");
-    test.strictEqual(getClass(Boolean(false), true), "Boolean", "should work");
-    test.strictEqual(getClass(new MyBoolean(false), true), "Boolean", "should work");
+    test.strictEqual(getClass(true, {specific: true}), "Boolean", "should work");
+    test.strictEqual(getClass(Boolean(true), {specific: true}), "Boolean", "should work");
+    test.strictEqual(getClass(new MyBoolean(true), {specific: true}), "Boolean", "should work");
+    test.strictEqual(getClass(false, {specific: true}), "Boolean", "should work");
+    test.strictEqual(getClass(Boolean(false), {specific: true}), "Boolean", "should work");
+    test.strictEqual(getClass(new MyBoolean(false), {specific: true}), "Boolean", "should work");
     test.done();
   },
   "Function": function(test) {
@@ -143,59 +142,59 @@ exports["specific"] = {
     function fn1() {}
     var fn2 = function() {};
     var fn3 = new Function("return 1;");
-    test.strictEqual(getClass(fn1, true), "Function", "should work");
-    test.strictEqual(getClass(fn2, true), "Function", "should work");
-    test.strictEqual(getClass(fn3, true), "Function", "should work");
+    test.strictEqual(getClass(fn1, {specific: true}), "Function", "should work");
+    test.strictEqual(getClass(fn2, {specific: true}), "Function", "should work");
+    test.strictEqual(getClass(fn3, {specific: true}), "Function", "should work");
     test.done();
   },
   "RegExp": function(test) {
     test.expect(2);
     var re1 = /foo/;
     var re2 = new RegExp("foo");
-    test.strictEqual(getClass(re1, true), "RegExp", "should work");
-    test.strictEqual(getClass(re2, true), "RegExp", "should work");
+    test.strictEqual(getClass(re1, {specific: true}), "RegExp", "should work");
+    test.strictEqual(getClass(re2, {specific: true}), "RegExp", "should work");
     test.done();
   },
   "Array": function(test) {
     test.expect(5);
-    test.strictEqual(getClass([1, 2, 3], true), "Array", "should work");
-    test.strictEqual(getClass(_Array(10), true), "Array", "should work");
-    test.strictEqual(getClass(_Array(1, 2, 3), true), "Array", "should work");
-    test.strictEqual(getClass(new Array(10), true), "Array", "should work");
-    test.strictEqual(getClass(new Array(1, 2, 3), true), "Array", "should work");
+    test.strictEqual(getClass([1, 2, 3], {specific: true}), "Array", "should work");
+    test.strictEqual(getClass(_Array(10), {specific: true}), "Array", "should work");
+    test.strictEqual(getClass(_Array(1, 2, 3), {specific: true}), "Array", "should work");
+    test.strictEqual(getClass(new Array(10), {specific: true}), "Array", "should work");
+    test.strictEqual(getClass(new Array(1, 2, 3), {specific: true}), "Array", "should work");
     test.done();
   },
   "Date": function(test) {
     test.expect(1);
-    test.strictEqual(getClass(new Date(), true), "Date", "should work");
+    test.strictEqual(getClass(new Date(), {specific: true}), "Date", "should work");
     test.done();
   },
   "Error": function(test) {
     test.expect(6);
-    test.strictEqual(getClass(new Error("foo"), true), "Error", "should work");
-    test.strictEqual(getClass(new EvalError("foo"), true), "Error", "should work");
-    test.strictEqual(getClass(new RangeError("foo"), true), "Error", "should work");
-    test.strictEqual(getClass(new ReferenceError("foo"), true), "Error", "should work");
-    test.strictEqual(getClass(new SyntaxError("foo"), true), "Error", "should work");
-    test.strictEqual(getClass(new TypeError("foo"), true), "Error", "should work");
+    test.strictEqual(getClass(new Error("foo"), {specific: true}), "Error", "should work");
+    test.strictEqual(getClass(new EvalError("foo"), {specific: true}), "Error", "should work");
+    test.strictEqual(getClass(new RangeError("foo"), {specific: true}), "Error", "should work");
+    test.strictEqual(getClass(new ReferenceError("foo"), {specific: true}), "Error", "should work");
+    test.strictEqual(getClass(new SyntaxError("foo"), {specific: true}), "Error", "should work");
+    test.strictEqual(getClass(new TypeError("foo"), {specific: true}), "Error", "should work");
     test.done();
   },
   "global": function(test) {
     test.expect(1);
-    test.strictEqual(getClass(_global, true), "global", "should work");
+    test.strictEqual(getClass(_global, {specific: true}), "global", "should work");
     test.done();
   },
   "Object": function(test) {
     test.expect(2);
     function Foo() {}
-    test.strictEqual(getClass(new Foo(), true), "Object", "should work");
-    test.strictEqual(getClass({}, true), "Object", "should work");
+    test.strictEqual(getClass(new Foo(), {specific: true}), "Object", "should work");
+    test.strictEqual(getClass({}, {specific: true}), "Object", "should work");
     test.done();
   },
   "Specific": function(test) {
     test.expect(2);
-    test.strictEqual(getClass(arguments, true), "Arguments", "should work");
-    test.strictEqual(getClass(JSON, true), "JSON", "should work");
+    test.strictEqual(getClass(arguments, {specific: true}), "Arguments", "should work");
+    test.strictEqual(getClass(JSON, {specific: true}), "JSON", "should work");
     test.done();
   }
 };

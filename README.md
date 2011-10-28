@@ -1,6 +1,6 @@
-# JavaScript getClass
+# JavaScript kindOf
 
-Get the [[Class]] of a value.
+Get the kind of a value. "Kind of" like [[Class]] and typeof, but better.
 
 By default, all objects that aren't `Number`, `String`, `Boolean`, `Function`, `RegExp`, `Array`, `Date`, or `Error` will return `"Object"` unless an optional second argument is passed.
 
@@ -13,28 +13,34 @@ Based on prior work by [Angus Croll](http://javascriptweblog.wordpress.com/2011/
 This code should work just fine in Node.js:
 
 ```javascript
-var getClass = require('lib/getclass').getClass;
-getClass("foo") // "String"
+var getClass = require('lib/kindof');
+kindOf("foo")         // "String"
+isKind(123, "Number") // true
+isGlobal(global)      // true
 ```
 
 Or in the browser:
 
 ```html
-<script src="dist/ba-getclass.min.js"></script>
+<script src="dist/ba-kindof.min.js"></script>
 <script>
-getClass("foo") // "String"
+kindOf("foo")         // "String"
+isKind(123, "Number") // true
+isGlobal(window)      // true
 </script>
 ```
 
-In the browser, you can attach getClass to any object.
+In the browser, you can attach kindOf's methods to any object.
 
 ```html
 <script>
 this.exports = Bocoup.utils;
 </script>
-<script src="dist/ba-getclass.min.js"></script>
+<script src="dist/ba-kindof.min.js"></script>
 <script>
-Bocoup.utils.getClass("foo") // "String"
+Bocoup.utils.kindOf("foo")         // "String"
+Bocoup.utils.isKind(123, "Number") // true
+Bocoup.utils.isGlobal(window)      // true
 </script>
 ```
 
@@ -42,69 +48,99 @@ Bocoup.utils.getClass("foo") // "String"
 
 ```javascript
 // Null:
-getClass(null)                        // "Null"
+kindOf(null)                        // "Null"
+isKind(null, "Null")                // true
+isNull(null)                        // true
 
 // Undefined:
-getClass(undefined)                   // "Undefined"
+kindOf(undefined)                   // "Undefined"
+isKind(undefined, "Undefined")      // true
+isUndefined(undefined)              // true
 
 // Number (primitive or object):
-getClass(123)                         // "Number"
-getClass(Number(123))                 // "Number"
-getClass(new Number(123))             // "Number"
+kindOf(123)                         // "Number"
+kindOf(Number(123))                 // "Number"
+kindOf(new Number(123))             // "Number"
+isKind(123, "Number")               // true
+isNumber(123)                       // true
 
 // String (primitive or object):
-getClass("foo")                       // "String"
-getClass(String("foo"))               // "String"
-getClass(new String("foo"))           // "String"
+kindOf("foo")                       // "String"
+kindOf(String("foo"))               // "String"
+kindOf(new String("foo"))           // "String"
+isKind("foo", "String")             // true
+isString("foo")                     // true
 
 // Boolean (primitive or object):
-getClass(true)                        // "Boolean"
-getClass(Boolean(true))               // "Boolean"
-getClass(new Boolean(true))           // "Boolean"
+kindOf(true)                        // "Boolean"
+kindOf(Boolean(true))               // "Boolean"
+kindOf(new Boolean(true))           // "Boolean"
+isKind(true, "Boolean")             // true
+isBoolean(true)                     // true
 
 // Function:
-getClass(function() {})               // "Function"
-getClass(new Function("return 1;"))   // "Function"
+kindOf(function() {})               // "Function"
+kindOf(new Function("return 1;"))   // "Function"
+isKind(function() {}, "Function")   // true
+isFunction(function() {})           // true
 
 // RegExp:
-getClass(/^z?omg$/i)                  // "RegExp"
-getClass(new RegExp("^z?zomg$", "i")) // "RegExp"
+kindOf(/^z?omg$/i)                  // "RegExp"
+kindOf(new RegExp("^z?zomg$", "i")) // "RegExp"
+isKind(/^z?omg$/i, "RegExp")        // true
+isRegExp(/^z?omg$/i)                // true
 
 // Array:
-getClass([1, 2, 3])                   // "Array"
-getClass(Array(10))                   // "Array"
-getClass(Array(1, 2, 3))              // "Array"
-getClass(new Array(10))               // "Array"
-getClass(new Array(1, 2, 3))          // "Array"
+kindOf([1, 2, 3])                   // "Array"
+kindOf(Array(10))                   // "Array"
+kindOf(Array(1, 2, 3))              // "Array"
+kindOf(new Array(10))               // "Array"
+kindOf(new Array(1, 2, 3))          // "Array"
+isKind([1, 2, 3], "Array")          // true
+isArray([1, 2, 3])                  // true
 
 // Date:
-getClass(new Date())                  // "Date"
+kindOf(new Date())                  // "Date"
+isKind(new Date(), "Date")          // true
+isDate(new Date())                  // true
 
 // Error:
-getClass(new Error("foo"))            // "Error"
-getClass(new EvalError("foo"))        // "Error"
-getClass(new RangeError("foo"))       // "Error"
-getClass(new ReferenceError("foo"))   // "Error"
-getClass(new SyntaxError("foo"))      // "Error"
-getClass(new TypeError("foo"))        // "Error"
+kindOf(new Error("foo"))            // "Error"
+kindOf(new EvalError("foo"))        // "Error"
+kindOf(new RangeError("foo"))       // "Error"
+kindOf(new ReferenceError("foo"))   // "Error"
+kindOf(new SyntaxError("foo"))      // "Error"
+kindOf(new TypeError("foo"))        // "Error"
+isKind(new Error("foo"), "Error")   // true
+isError(new Error("foo"))           // true
 
 // Object:
-getClass({})                          // "Object"
-getClass(new function() {})           // "Object"
-getClass(global)                      // "Object"
-getClass(JSON)                        // "Object"
-getClass(window)                      // "Object"
-getClass(document)                    // "Object"
-getClass(document.body)               // "Object"
+kindOf({})                          // "Object"
+kindOf(new function() {})           // "Object"
+kindOf(global)                      // "Object"
+kindOf(JSON)                        // "Object"
+kindOf(window)                      // "Object"
+kindOf(document)                    // "Object"
+kindOf(document.body)               // "Object"
+isKind({}, "Object")                // true
+isObject({})                        // true
+isKind(global, "Object")            // true
+isObject(global)                    // true
+isKind(document, "Object")          // true
+isObject(document)                  // true
 
 // Object, specifically:
-getClass({}, true)                    // "Object"
-getClass(new function() {}, true)     // "Object"
-getClass(global, true)                // "global"
-getClass(JSON, true)                  // "JSON"
-getClass(window, true)                // "global"
-getClass(document, true)              // "HTMLDocument"
-getClass(document.body, true)         // "HTMLBodyElement"
+kindOf({}, {specific: true})                        // "Object"
+kindOf(new function() {}, {specific: true})         // "Object"
+kindOf(global, {specific: true})                    // "global"
+kindOf(JSON, {specific: true})                      // "JSON"
+kindOf(window, {specific: true})                    // "global"
+kindOf(document, {specific: true})                  // "HTMLDocument"
+kindOf(document.body, {specific: true})             // "HTMLBodyElement"
+isKind(global, "Global", {specific: true})          // true
+isKind(JSON, "JSON", {specific: true})              // true
+isKind(document, "HTMLDocument", {specific: true})  // true
+isGlobal(global)                                    // true
 ```
 
 ## Documentation
